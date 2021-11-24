@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+
 namespace Console
 {
     public class Calculator
@@ -8,8 +11,11 @@ namespace Console
             {
                 return 0;
             }
-            var result = int.Parse(input);
-            return result;
+
+            var result = 0;
+            string[] inputString = input.Split(",");
+            int[] inputValues = Array.ConvertAll(inputString, s => int.Parse(s));
+            return inputValues.Sum();
         }
     }
 }

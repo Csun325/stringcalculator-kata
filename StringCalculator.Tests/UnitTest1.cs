@@ -33,5 +33,15 @@ namespace StringCalculator.Tests
             //assert
             Assert.Equal(6, ans);
         }
+
+        [Fact]
+        public void Add_WhenStringIsDoubleDigit_ThenReturnSumOfTheDigits()
+        {
+            //arrange
+            //act
+            var ans = _calculator.Add("3,5");
+            //assert
+            Assert.Equal(8, ans);
+        }
     }
 }
