@@ -84,6 +84,16 @@ namespace StringCalculator.Tests
             var exception = Assert.Throws<ArgumentException>(() => _calculator.Add("-1,2,-3"));
             Assert.Equal("Negative not allowed: -1 -3", exception.Message);
         }
+
+        [Fact]
+        public void Add_WhenNumberIsGreaterOrEqual1000_ThenNumberIsIgnoredInSum()
+        {
+            //arrange
+            //act
+            var ans = _calculator.Add("1000,1001,2");
+            //assert
+            Assert.Equal(2, ans);
+        }
         
     }
 }

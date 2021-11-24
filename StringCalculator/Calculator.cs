@@ -23,11 +23,17 @@ namespace Console
             var inputString = input.Split(delimitersChars);
             int[] inputNumbers = Array.ConvertAll(inputString, s => int.Parse(s));
 
-            if (!inputNumbers.Any(num => num < 0)) return inputNumbers.Sum();
+            if (inputNumbers.Any(num => num < 0)) 
             {
                 var message = GetExceptionMessage(inputNumbers);
                 throw new ArgumentException(message);
             }
+
+            if (!inputNumbers.Any(num => num >= 1000)) return inputNumbers.Sum();
+
+            inputNumbers = RemoveNumberGreaterOrEqualTo1000(inputNumbers);
+
+            return inputNumbers.Sum();
 
         }
         
@@ -55,5 +61,16 @@ namespace Console
             return message;
         }
 
+        private static int[] RemoveNumberGreaterOrEqualTo1000(int[] inputNumbers)
+        {
+            for (var i = 0; i < inputNumbers.Length; i++)
+            {
+                if(inputNumbers[i] >= 1000)
+                {
+                    inputNumbers[i] = 0;
+                }
+            }
+            return inputNumbers;
+        }
     }
 }
