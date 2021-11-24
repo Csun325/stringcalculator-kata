@@ -22,21 +22,12 @@ namespace Console
             
             var inputString = input.Split(delimitersChars);
             int[] inputNumbers = Array.ConvertAll(inputString, s => int.Parse(s));
-            
-            if (inputNumbers.Any(num => num < 0))
-            {
-                int[] negativeNumbers = inputNumbers.Where(num => num < 0).ToArray();
-                var message = "Negative not allowed:";
-                foreach (var num in negativeNumbers)
-                {
-                    message += " " + num;
-                }
 
+            if (!inputNumbers.Any(num => num < 0)) return inputNumbers.Sum();
+            {
+                var message = GetExceptionMessage(inputNumbers);
                 throw new ArgumentException(message);
             }
-            
-            
-            return inputNumbers.Sum();
 
         }
         
@@ -54,6 +45,13 @@ namespace Console
         {
             var checkSlash = input.Substring(0, 2);
             return (checkSlash == "//");
+        }
+
+        private static string GetExceptionMessage(int[] inputNumbers)
+        {
+            int[] negativeNumbers = inputNumbers.Where(num => num < 0).ToArray();
+            var message = negativeNumbers.Aggregate("Negative not allowed:", (current, num) => current + (" " + num));
+            return message;
         }
 
     }
