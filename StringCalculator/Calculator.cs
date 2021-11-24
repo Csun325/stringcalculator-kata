@@ -5,33 +5,56 @@ namespace Console
 {
     public class Calculator
     {
-        public int Add(string input)
+        public int Add(string input) 
         {
-            if (input == "")
-            {
-                return 0;
-            }
-
-            if (input.Length <= 1) return int.Parse(input);
+            if (IsEmptyString(input)) return 0;
             
-            var checkSlash = input.Substring(0, 2);
-            char[] delimitersChars;
+            if(IsSingleDigit(input)) return int.Parse(input);
             
-            if (checkSlash == "//")
+            // default delimiters
+            char[] delimitersChars = new[]{',', '\n'};
+            
+            if (IsDoubleSlash(input))
             {
                 delimitersChars = input.Substring(2, 1).ToCharArray();
                 input = input.Substring(4);
             }
-            else
-            {
-                delimitersChars = new Char[]{',', '\n'};
-            }
             
             var inputString = input.Split(delimitersChars);
+            int[] inputNumbers = Array.ConvertAll(inputString, s => int.Parse(s));
             
-            int[] inputValues = Array.ConvertAll(inputString, s => int.Parse(s));
-            return inputValues.Sum();
+            if (inputNumbers.Any(num => num < 0))
+            {
+                int[] negativeNumbers = inputNumbers.Where(num => num < 0).ToArray();
+                var message = "Negative not allowed:";
+                foreach (var num in negativeNumbers)
+                {
+                    message += " " + num;
+                }
+
+                throw new ArgumentException(message);
+            }
+            
+            
+            return inputNumbers.Sum();
 
         }
+        
+        private static bool IsEmptyString(string input)
+        {
+            return input == "";
+        }
+
+        private static bool IsSingleDigit(string input)
+        {
+            return input.Length <= 1;
+        }
+
+        private static bool IsDoubleSlash(string input)
+        {
+            var checkSlash = input.Substring(0, 2);
+            return (checkSlash == "//");
+        }
+
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Console;
 using Xunit;
 
@@ -72,6 +73,15 @@ namespace StringCalculator.Tests
             var ans = _calculator.Add("//;\n1;2");
             //assert
             Assert.Equal(3, ans);
+        }
+
+        [Fact]
+        public void Add_WhenStringDigitsHasNegatives_ThenThrowExceptions()
+        {
+            //act
+            //assert
+            var exception = Assert.Throws<ArgumentException>(() => _calculator.Add("-1,2,-3"));
+            Assert.Equal("Negative not allowed: -1 -3", exception.Message);
         }
         
     }
