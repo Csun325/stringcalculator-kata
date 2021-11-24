@@ -12,11 +12,26 @@ namespace Console
                 return 0;
             }
 
-            var result = 0;
-            char[] delimitersChars = {',', '\n'};
-            string[] inputString = input.Split(delimitersChars);
+            if (input.Length <= 1) return int.Parse(input);
+            
+            var checkSlash = input.Substring(0, 2);
+            char[] delimitersChars;
+            
+            if (checkSlash == "//")
+            {
+                delimitersChars = input.Substring(2, 1).ToCharArray();
+                input = input.Substring(4);
+            }
+            else
+            {
+                delimitersChars = new Char[]{',', '\n'};
+            }
+            
+            var inputString = input.Split(delimitersChars);
+            
             int[] inputValues = Array.ConvertAll(inputString, s => int.Parse(s));
             return inputValues.Sum();
+
         }
     }
 }
