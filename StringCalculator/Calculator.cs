@@ -4,7 +4,11 @@ namespace Console
     {
         public int Add(string input)
         {
-            var result = 0;
+            if (input == "")
+            {
+                return 0;
+            }
+            var result = int.Parse(input);
             return result;
         }
     }

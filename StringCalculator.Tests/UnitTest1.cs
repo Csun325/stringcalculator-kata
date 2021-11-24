@@ -7,15 +7,31 @@ namespace StringCalculator.Tests
 {
     public class UnitTest1
     {
+        private Calculator _calculator;
+        public UnitTest1()
+        {
+            _calculator = new Calculator();
+            
+        }
+        
         [Fact]
         public void Add_WhenStringIsNull_ThenReturnZero()
         {
             //arrange
-            Calculator calc = new Calculator();
             //act
-            var ans = calc.Add("");
+            var ans = _calculator.Add("");
             //assert
             Assert.Equal(0, ans);
+        }
+
+        [Fact]
+        public void Add_WhenStringIsSingleDigit_ThenReturnSameSingleDigit()
+        {
+            //arrange
+            //act
+            var ans = _calculator.Add("6");
+            //assert
+            Assert.Equal(6, ans);
         }
     }
 }
