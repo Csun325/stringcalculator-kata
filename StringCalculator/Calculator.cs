@@ -31,6 +31,7 @@ namespace Console
 
         }
         
+        // helper methods below
         private static bool IsEmptyString(string input)
         {
             return input == "";

@@ -6,10 +6,10 @@ using Xunit;
 namespace StringCalculator.Tests
 
 {
-    public class UnitTest1
+    public class CalculatorTest
     {
         private Calculator _calculator;
-        public UnitTest1()
+        public CalculatorTest()
         {
             _calculator = new Calculator();
             
@@ -78,6 +78,7 @@ namespace StringCalculator.Tests
         [Fact]
         public void Add_WhenStringDigitsHasNegatives_ThenThrowExceptions()
         {
+            //arrange
             //act
             //assert
             var exception = Assert.Throws<ArgumentException>(() => _calculator.Add("-1,2,-3"));
