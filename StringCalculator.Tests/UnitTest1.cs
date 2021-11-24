@@ -53,6 +53,16 @@ namespace StringCalculator.Tests
             //assert
             Assert.Equal(20, ans);
         }
+
+        [Fact]
+        public void Add_WhenStringDigitsHasDelimiters_ThenReturnSumOfAllDigits()
+        {
+            //arrange
+            //act
+            var ans = _calculator.Add("1,2\n3");
+            //assert
+            Assert.Equal(6, ans);
+        }
         
     }
 }

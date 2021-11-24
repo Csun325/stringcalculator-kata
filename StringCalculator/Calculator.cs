@@ -13,7 +13,7 @@ namespace Console
             }
 
             var result = 0;
-            string[] inputString = input.Split(",");
+            string[] inputString = input.Split(',','\n');
             int[] inputValues = Array.ConvertAll(inputString, s => int.Parse(s));
             return inputValues.Sum();
         }
