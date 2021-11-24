@@ -43,5 +43,16 @@ namespace StringCalculator.Tests
             //assert
             Assert.Equal(8, ans);
         }
+        
+        [Fact]
+        public void Add_WhenStringIsAnyAmountOfDigit_ThenReturnSumOfAllTheDigits()
+        {
+            //arrange
+            //act
+            var ans = _calculator.Add("3,5,3,9");
+            //assert
+            Assert.Equal(20, ans);
+        }
+        
     }
 }
