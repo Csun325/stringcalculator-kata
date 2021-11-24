@@ -31,7 +31,7 @@ namespace Console
 
             if (!inputNumbers.Any(num => num >= 1000)) return inputNumbers.Sum();
 
-            inputNumbers = RemoveNumberGreaterOrEqualTo1000(inputNumbers);
+            inputNumbers = GetNumbersLessThan1000(inputNumbers);
 
             return inputNumbers.Sum();
 
@@ -61,16 +61,11 @@ namespace Console
             return message;
         }
 
-        private static int[] RemoveNumberGreaterOrEqualTo1000(int[] inputNumbers)
+        private static int[] GetNumbersLessThan1000 (int[] inputNumbers)
         {
-            for (var i = 0; i < inputNumbers.Length; i++)
-            {
-                if(inputNumbers[i] >= 1000)
-                {
-                    inputNumbers[i] = 0;
-                }
-            }
-            return inputNumbers;
+            var numbersLessThan1000 = inputNumbers.ToList().Where(num => num < 1000);
+            var result = numbersLessThan1000.ToArray();
+            return result;
         }
     }
 }
