@@ -124,6 +124,16 @@ namespace StringCalculator.Tests
             //assert
             Assert.Equal(10, ans);
         }
+
+        [Fact]
+        public void Add_WhenDelimiterContainsNumbers_ThenReturnSumExcludingDigitsInDelimiters()
+        {
+            //arrange
+            //act
+            var ans = _calculator.Add("//[*1*][%]\n1*1*2%3");
+            //assert
+            Assert.Equal(6, ans);
+        }
         
     }
 }

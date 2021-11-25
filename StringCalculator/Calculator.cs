@@ -18,14 +18,13 @@ namespace Console
             
             if (IsDoubleSlash(input))
             {
-                var endDelimiterPos = input.IndexOf('\n');
-                var inputRule = input.Substring(2, endDelimiterPos - 2);
-                
+                var inputRule = GetInputRule(input);
                 inputString = inputRule.Contains('[') ? ProcessMultipleDelimiters(input, inputRule) : ProcessSingleDelimiter(input, inputRule);
             }
             
             int[] inputNumbers = Array.ConvertAll(inputString, s => int.Parse(s));
 
+            // for negative numbers
             if (inputNumbers.Any(num => num < 0)) 
             {
                 var message = GetExceptionMessage(inputNumbers);
@@ -34,8 +33,8 @@ namespace Console
 
             if (!inputNumbers.Any(num => num >= 1000)) return inputNumbers.Sum();
 
+            //for numbers >= 1000
             inputNumbers = GetNumbersLessThan1000(inputNumbers);
-
             return inputNumbers.Sum();
 
         }
@@ -69,6 +68,12 @@ namespace Console
             var numbersLessThan1000 = inputNumbers.ToList().Where(num => num < 1000);
             var result = numbersLessThan1000.ToArray();
             return result;
+        }
+
+        private static string GetInputRule(string input)
+        {
+            var endDelimiterPos = input.IndexOf('\n');
+            return input.Substring(2, endDelimiterPos - 2);
         }
 
         private static string[] ProcessSingleDelimiter(string input, string inputRule)
