@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Console
 {
@@ -13,14 +14,28 @@ namespace Console
             
             // default delimiters
             char[] delimitersChars = new[]{',', '\n'};
+            var inputString = input.Split(delimitersChars);
             
             if (IsDoubleSlash(input))
             {
-                delimitersChars = input.Substring(2, 1).ToCharArray();
-                input = input.Substring(4);
+                
+                var endDelimiterPos = input.IndexOf('\n');
+                
+                var inputRule = input.Substring(2, endDelimiterPos - 2);
+                if (inputRule.Contains('['))
+                {
+                    var match = Regex.Match(inputRule, @"\[(.+?)\]").Groups[1].Value;
+                    input = input.Substring(5 + match.Length);
+                    inputString = input.Split(match);
+                }
+                else
+                {
+                    delimitersChars = inputRule.ToCharArray();
+                    input = input.Substring(4);
+                    inputString = input.Split(delimitersChars);
+                }
             }
             
-            var inputString = input.Split(delimitersChars);
             int[] inputNumbers = Array.ConvertAll(inputString, s => int.Parse(s));
 
             if (inputNumbers.Any(num => num < 0)) 

@@ -94,6 +94,16 @@ namespace StringCalculator.Tests
             //assert
             Assert.Equal(2, ans);
         }
+
+        [Fact]
+        public void Add_WhenDelimiterIsAnyLength_ThenReturnSumOfAllDigitsIgnoreDelimiter()
+        {
+            //arrange
+            //act
+            var ans = _calculator.Add("//[***]\n1***2***3");
+            //assert
+            Assert.Equal(6, ans);
+        }
         
     }
 }
