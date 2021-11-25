@@ -18,15 +18,14 @@ namespace Console
             
             if (IsDoubleSlash(input))
             {
-                
                 var endDelimiterPos = input.IndexOf('\n');
-                
                 var inputRule = input.Substring(2, endDelimiterPos - 2);
+                
                 if (inputRule.Contains('['))
                 {
-                    var match = Regex.Match(inputRule, @"\[(.+?)\]").Groups[1].Value;
-                    input = input.Substring(5 + match.Length);
-                    inputString = input.Split(match);
+                    var ruleMatch = Regex.Matches(inputRule, @"\[(.+?)\]").Cast<Match>().Select(s => s.Groups[1].Value).ToArray();
+                    input = input.Substring(input.LastIndexOf(']') + 2);
+                    inputString = input.Split(ruleMatch, System.StringSplitOptions.None);
                 }
                 else
                 {
