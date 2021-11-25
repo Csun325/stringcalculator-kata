@@ -114,6 +114,16 @@ namespace StringCalculator.Tests
             //assert
             Assert.Equal(6, ans);
         }
+
+        [Fact]
+        public void Add_WhenMultipleDelimiterWithDifferentLengthIntroduced_ThenReturnSumOfAllDigitsIgnoringDelimiter()
+        {
+            //arrange
+            //act
+            var ans = _calculator.Add("//[***][#][%]\n1***2#3%4");
+            //assert
+            Assert.Equal(10, ans);
+        }
         
     }
 }

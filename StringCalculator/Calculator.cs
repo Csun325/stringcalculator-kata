@@ -21,18 +21,7 @@ namespace Console
                 var endDelimiterPos = input.IndexOf('\n');
                 var inputRule = input.Substring(2, endDelimiterPos - 2);
                 
-                if (inputRule.Contains('['))
-                {
-                    var ruleMatch = Regex.Matches(inputRule, @"\[(.+?)\]").Cast<Match>().Select(s => s.Groups[1].Value).ToArray();
-                    input = input.Substring(input.LastIndexOf(']') + 2);
-                    inputString = input.Split(ruleMatch, System.StringSplitOptions.None);
-                }
-                else
-                {
-                    delimitersChars = inputRule.ToCharArray();
-                    input = input.Substring(4);
-                    inputString = input.Split(delimitersChars);
-                }
+                inputString = inputRule.Contains('[') ? ProcessMultipleDelimiters(input, inputRule) : ProcessSingleDelimiter(input, inputRule);
             }
             
             int[] inputNumbers = Array.ConvertAll(inputString, s => int.Parse(s));
@@ -80,6 +69,20 @@ namespace Console
             var numbersLessThan1000 = inputNumbers.ToList().Where(num => num < 1000);
             var result = numbersLessThan1000.ToArray();
             return result;
+        }
+
+        private static string[] ProcessSingleDelimiter(string input, string inputRule)
+        {
+            var delimitersChars = inputRule.ToCharArray();
+            input = input.Substring(4);
+            return input.Split(delimitersChars);
+        }
+
+        private static string[] ProcessMultipleDelimiters(string input, string inputRule)
+        {
+            var ruleMatch = Regex.Matches(inputRule, @"\[(.+?)\]").Cast<Match>().Select(s => s.Groups[1].Value).ToArray();
+            input = input.Substring(input.LastIndexOf(']') + 2);
+            return input.Split(ruleMatch, System.StringSplitOptions.None);
         }
     }
 }
